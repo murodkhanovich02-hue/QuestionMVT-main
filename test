@@ -1,0 +1,56 @@
+<!--{% extends "base.html" %}-->
+<!--{% load static %}-->
+
+<!--{% block title %}Admin Panel{% endblock %}-->
+
+<!--{% block content %}-->
+<!--<style>-->
+<!--    /* Navbar styling */-->
+<!--    .navbar {-->
+<!--        background-color: #4A90E2;-->
+<!--        padding: 15px 30px;-->
+<!--        display: flex;-->
+<!--        justify-content: space-between;-->
+<!--        align-items: center;-->
+<!--        font-family: 'Poppins', sans-serif;-->
+<!--    }-->
+<!--    .navbar h1 {-->
+<!--        color: white;-->
+<!--        font-size: 22px;-->
+<!--        margin: 0;-->
+<!--    }-->
+<!--    .navbar a {-->
+<!--        background-color: #23acf5;-->
+<!--        color: white;-->
+<!--        padding: 8px 15px;-->
+<!--        text-decoration: none;-->
+<!--        border-radius: 6px;-->
+<!--        font-weight: bold;-->
+<!--        transition: background 0.3s;-->
+<!--    }-->
+<!--    .navbar a:hover {-->
+<!--        background-color: #57625a;-->
+<!--    }-->
+
+<!--    /* Content */-->
+<!--    .admin-container {-->
+<!--        padding: 30px;-->
+<!--        font-family: 'Poppins', sans-serif;-->
+<!--    }-->
+<!--</style>-->
+
+<!--&lt;!&ndash; Google Fonts &ndash;&gt;-->
+<!--<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">-->
+
+<!--&lt;!&ndash; Navbar &ndash;&gt;-->
+<!--<div class="navbar">-->
+<!--    <h1>Admin Panel</h1>-->
+<!--    <a href="{% url 'question_add' %}">Savol qo'shish</a>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Content &ndash;&gt;-->
+<!--<div class="admin-container">-->
+<!--    <h2>📋 Savollar ro'yxati</h2>-->
+<!--    <p>Bu yerda barcha savollar ko'rsatiladi...</p>-->
+<!--</div>-->
+<!--{% endblock %}-->

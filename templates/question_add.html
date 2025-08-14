@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Savol qo‘shish{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 text-center">📝 Yangi Savol Qo‘shish</h2>
+            <a href="{% url 'admin_page' %}" class="btn btn-secondary btn-lg">⬅ Ortga</a>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Savol matni -->
+            <div class="mb-4">
+                <label for="text" class="form-label fw-bold">Savol matni</label>
+                <textarea class="form-control form-control-lg" id="text" name="text" rows="3" placeholder="Savolni kiriting..." required></textarea>
+            </div>
+
+            <!-- Level tanlash -->
+            <div class="mb-4">
+                <label for="level" class="form-label fw-bold">Daraja</label>
+                <select class="form-select form-select-lg" id="level" name="level" required>
+                    <option value="beginner">Beginner</option>
+                    <option value="elementary">Elementary</option>
+                    <option value="pre-intermediate">Pre-Intermediate</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="upper-intermediate">Upper-Intermediate</option>
+                </select>
+            </div>
+
+            <hr>
+
+            <!-- Javob variantlari -->
+            <h5 class="mb-3">Javob variantlari</h5>
+
+            {% for i in "123" %}
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-9">
+                    <input type="text" name="answer{{ i }}" class="form-control form-control-lg" placeholder="Variant {{ i }}" required>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="correct_answer" value="{{ i }}" required>
+                        <label class="form-check-label">
+                            ✅ To‘g‘ri javob
+                        </label>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Saqlash tugmasi -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success btn-lg px-5">
+                    💾 Saqlash
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}

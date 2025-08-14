@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<style>
+    .navbar {
+        background-color: #4A90E2;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+    }
+    .navbar h1 {
+        color: white;
+        font-size: 22px;
+        margin: 0;
+    }
+    .navbar a {
+        background-color: #23acf5;
+        color: white;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    .navbar a:hover {
+        background-color: #57625a;
+    }
+    .logout-btn {
+        background-color: #f54242 !important;
+    }
+    .logout-btn:hover {
+        background-color: #bd2130 !important;
+    }
+    .admin-container {
+        padding: 30px;
+        font-family: 'Poppins', sans-serif;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #4A90E2;
+        color: white;
+    }
+    .btn-update {
+        background-color: #ffc107;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .btn-update:hover {
+        background-color: #e0a800;
+    }
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .btn-delete:hover {
+        background-color: #bd2130;
+    }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<div class="navbar">
+    <h1>Admin Panel</h1>
+    <div>
+        <a href="{% url 'question_add' %}">Savol qo'shish</a>
+        <a href="{% url 'logout' %}" class="logout-btn" style="margin-left: 10px;">Log out</a>
+    </div>
+</div>
+
+<div class="admin-container">
+    <h2>📋 Barcha savollar</h2>
+
+    {% if questions %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Savol matni</th>
+                <th>Daraja</th>
+                <th>Amallar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q in questions %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ q.text }}</td>
+                <td>{{ q.level }}</td>
+                <td>
+                    <a href="{% url 'update_question' q.id %}" class="btn-update">✏ Update</a>
+                    <a href="{% url 'delete_question' q.id %}" class="btn-delete" onclick="return confirm('Haqiqatan ham o‘chirmoqchimisiz?')">🗑 Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="mt-3">❌ Hozircha hech qanday savol yo‘q.</p>
+    {% endif %}
+</div>
+{% endblock %}

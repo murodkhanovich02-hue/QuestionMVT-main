@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>🗑 Savolni o‘chirish</h2>
+<p>"{{ question.text }}" savolini o‘chirishingizga ishonchingiz komilmi?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" style="background:red; color:white; padding:8px 15px;">Ha, o‘chir</button>
+    <a href="./." style="margin-left:10px;">Bekor qilish</a>
+</form>
+{% endblock %}

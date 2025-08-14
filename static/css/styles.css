@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #6a2cdec;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    background: #a2cdec;
+}
+
+header {
+    background: #6eb9ee ;
+    color: #6eb9ee;
+    padding: 10px 0;
+    text-align: center;
+}
+
+h1 {
+    color: #fff;
+}
+
+form {
+    background: #6eb9ee ;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.question-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.answer-option {
+    display: flex;
+    align-items: center;
+}
+
+.answer-option input {
+    margin-right: 10px;
+}
+
+button {
+    background: linear-gradient(to right, #004d00, #00b3e6);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-size: 16px;
+}
+
+button:hover {
+    background: linear-gradient(to right, #005600, #0099cc);
+}
+
+button:disabled {
+    background: #ddd;
+    cursor: not-allowed;
+}

@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Questions</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #4e73df;
+            padding: 10px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Timer */
+        .timer-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* Forms */
+        label, legend {
+            font-weight: 600;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+        }
+
+        .question-fieldset {
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .answers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button {
+            background: #4e73df;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #3a5bcc;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="{% url 'home_page' %}" class="logo">TESTApp</a>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container">
+
+        <!-- Timer -->
+        <div class="timer-box">
+            ⏳ Qolgan vaqt: <span id="timer">10:00</span>
+        </div>
+
+        <!-- Level select form -->
+        <form method="get" action="{% url 'question_view' %}">
+            <label for="level"><h3>Selected Level:</h3></label>
+            <select id="level" name="level" onchange="this.form.submit()">
+                <option value="beginner" {% if selected_level == 'beginner' %}selected{% endif %}>Beginner</option>
+                <option value="elementary" {% if selected_level == 'elementary' %}selected{% endif %}>Elementary</option>
+                <option value="intermediate" {% if selected_level == 'intermediate' %}selected{% endif %}>Intermediate</option>
+                <option value="pre-intermediate" {% if selected_level == 'pre-intermediate' %}selected{% endif %}>Pre-Intermediate</option>
+                <option value="upper-intermediate" {% if selected_level == 'upper-intermediate' %}selected{% endif %}>Upper-Intermediate</option>
+            </select>
+        </form>
+
+        <!-- Questions form -->
+        <form method="post" action="{% url 'submit_answers' %}" id="test-form">
+            {% csrf_token %}
+            <input type="hidden" name="level" value="{{ selected_level }}">
+            {% for question in questions %}
+                <fieldset class="question-fieldset">
+                    <legend>{{ forloop.counter }}) {{ question.text }}</legend>
+                    <div class="answers-grid">
+                        {% for answer in question.answers.all %}
+                        <div class="answer-option">
+                            <input type="radio" id="answer_{{ answer.id }}" name="question_{{ question.id }}" value="{{ answer.id }}">
+                            <label for="answer_{{ answer.id }}">{{ answer.text }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Timer Script -->
+    <script>
+        let totalSeconds = 10 * 60; // 10 minutes
+
+        function updateTimer() {
+            let minutes = Math.floor(totalSeconds / 60);
+            let seconds = totalSeconds % 60;
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+
+            if (totalSeconds <= 0) {
+                clearInterval(timerInterval);
+                alert("⏰ Vaqt tugadi! Javoblaringiz yuboriladi.");
+                document.getElementById("test-form").submit();
+            }
+
+            totalSeconds--;
+        }
+
+        let timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+
+</body>
+</html>
